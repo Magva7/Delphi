@@ -1,0 +1,85 @@
+unit magva_project;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, DateUtils, MMSystem, System.UITypes;
+
+
+type
+  TForm1 = class(TForm)
+    EditTask: TEdit;
+    BtnAdd: TButton;
+    ListBoxTasks: TListBox;
+    BtnDelete: TButton;
+    DateTimePickerReminder: TDateTimePicker;
+    TimerCheck: TTimer;
+    procedure BtnAddClick(Sender: TObject);
+    procedure BtnDeleteClick(Sender: TObject);
+    procedure TimerCheckTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.BtnAddClick(Sender: TObject);
+var
+  TaskText: string;
+begin
+  if EditTask.Text <> '' then
+  begin
+    TaskText := FormatDateTime('yyyy-mm-dd hh:nn', DateTimePickerReminder.DateTime) + ' | ' + EditTask.Text;
+    ListBoxTasks.Items.Add(TaskText);
+    EditTask.Clear;
+    EditTask.SetFocus;
+  end;
+end;
+
+
+
+procedure TForm1.BtnDeleteClick(Sender: TObject);
+begin
+  if ListBoxTasks.ItemIndex >= 0 then
+    ListBoxTasks.Items.Delete(ListBoxTasks.ItemIndex);
+end;
+
+
+procedure TForm1.TimerCheckTimer(Sender: TObject);
+var
+  i: Integer;
+  TaskTimeStr: string;
+  TaskTime: TDateTime;
+begin
+  for i := ListBoxTasks.Items.Count - 1 downto 0 do
+  begin
+    TaskTimeStr := Copy(ListBoxTasks.Items[i], 1, 16); // первые 16 символов даты
+    try
+      TaskTime := StrToDateTime(TaskTimeStr);
+      if Abs(SecondsBetween(Now, TaskTime)) <= 1 then
+      begin
+        // Показать напоминание
+        MessageDlg('Напоминание: ' + ListBoxTasks.Items[i], mtInformation, [mbOK], 0);
+
+        // Воспроизвести звук
+        PlaySound('C:\Windows\Media\Alarm01.wav', 0, SND_FILENAME or SND_ASYNC);
+
+        // Чтобы не сработало повторно — удаляем
+        ListBoxTasks.Items.Delete(i);
+      end;
+    except
+      // если ошибка в дате — пропускаем
+    end;
+  end;
+end;
+
+end.
