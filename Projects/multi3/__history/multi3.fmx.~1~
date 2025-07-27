@@ -1,0 +1,24 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object btnHello: TButton
+    Position.X = 312.000000000000000000
+    Position.Y = 152.000000000000000000
+    TabOrder = 1
+    Text = #1053#1072#1078#1084#1080' '#1084#1077#1085#1103
+    TextSettings.Trimming = None
+    OnClick = btnHelloClick
+  end
+  object lblOutput: TLabel
+    Position.X = 312.000000000000000000
+    Position.Y = 208.000000000000000000
+    TabOrder = 2
+  end
+end

@@ -1,0 +1,19 @@
+inherited Form1_LgXhdpiPh: TForm1_LgXhdpiPh
+  ClientHeight = 694
+  ClientWidth = 450
+  DesignerMasterStyle = 3
+  inherited btnHello: TButton
+    Position.X = 112.000000000000000000
+    Position.Y = 208.000000000000000000
+    Size.Width = 225.000000000000000000
+    Size.Height = 52.000000000000000000
+    Size.PlatformDefault = False
+  end
+  inherited lblOutput: TLabel
+    Position.X = 112.000000000000000000
+    Position.Y = 312.000000000000000000
+    Size.Width = 225.000000000000000000
+    Size.Height = 41.000000000000000000
+    Size.PlatformDefault = False
+  end
+end

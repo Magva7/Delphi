@@ -24,6 +24,7 @@ var
 implementation
 
 {$R *.fmx}
+{$R *.LgXhdpiPh.fmx ANDROID}
 
 procedure TForm1.btnHelloClick(Sender: TObject);
 begin
